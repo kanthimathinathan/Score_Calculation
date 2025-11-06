@@ -259,15 +259,11 @@ def process_data(df_data, df_categories, use_llm=False, api_key=None):
     
     return df_processed
 
-# Function to create downloadable Excel
-def create_excel_download(df_data, df_categories):
-    """Create Excel file with multiple sheets"""
+# Function to create downloadable CSV
+def create_csv_download(df_data):
+    """Create CSV file with processed data"""
     output = BytesIO()
-    with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        df_data.to_excel(writer, sheet_name='Data', index=False)
-        if df_categories is not None:
-            df_categories.to_excel(writer, sheet_name='Categories', index=False)
-    
+    df_data.to_csv(output, index=False, encoding='utf-8')
     output.seek(0)
     return output
 
